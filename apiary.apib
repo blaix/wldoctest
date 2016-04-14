@@ -1,57 +1,80 @@
 FORMAT: 1A
+HOST: https://wl.golden.env.yola.net
 
-# Yola Test
+# Yola API
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Partner API for Yola Sitebuilder.
 
-## Questions Collection [/questions]
+All resources can be accessed via RESTful endpoints.
 
-### List All Questions [GET]
+All endpoints expect and return JSON objects.
 
-+ Authenticated (Basic)
+# Auth
 
-### Create a New Question [POST]
+All endpoints require valid HTTP authentication credentials unless otherwise stated.
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+When using the API console, enter your username and password as HTTP headers.
 
-+ Request (application/json)
+## Group Partners
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
+Create, get, update and delete partners.
 
-+ Response 201 (application/json)
+### Partner List Actions [/partners/]
+ 
+#### List partners [GET]
 
-    + Headers
+#### Create a partner [POST]
 
-            Location: /questions/2
++ Attributes
+    + id: WL_TEST123 (string, required) - partner ID
+    + name: Test Partner (string, required) - partner name
+    + parent_partner_id: WL_TEST_PARENT (string) - optional string containing ID of the parent partner.  Is null for the top-level partners.  Default is null.
+    + properties (object) - json object that contains mapping of property names to property values.
+        + billing_email: (string) - partner billing email address.
+        + billing_name: (string) - partner billing name.
+        + billing_phone: (string) - partner billing phone.
+        + company_address: (string) - address of the partner company.
+        + company_logo: (string) - URL of partners company logo image.
+        + company_logo_width: (number) - width of the company logo.
+        + currency: (string) - ISO 4271 currency code.
+        + country: (string) - name of the partner's country.
+        + footer_url: (string) - URL of custom footer HTML or image.
+        + google_maps_starting_address: (string) - the default search text to show in google map widget.
+        + publishing_endpoint: (string) - URL to publish partner's sites.
+        + publishing_type: (string) - determines the way how partner's sites are published.  The possible values are FTP (sites are published to the partner's FTP server) and YOLA (sites are published on Yola servers by yola means)
+        + support_email: (string) - email of partner's customer support service.
+        + support_name: (string) - name of the person or department responsible of partner's customer support service.
+        + support_phone: (string) - phone number of partner's customer support.
+        + support_url: (string) - URL the partners customer support site.
+        + technical_email: (string) - email of partner's technical support service.
+        + technical_name: (string) - name of the person or department responsible of partner's technical support service.
+        + technical_phone: (string) - phone number of partner's technical support.
+        + website: (string) - URL of partner's website
+        + ftp_concurrency: (number) - max number of concurrent connections to partner's FTP publishing endpoint.
+        + widget_exclusion_list: (array) - list of site widget names that should not be shown to partner's users.
+        + available_non_paid_features: (array) - list of features enabled for users. Possible values are account_status, analytics, dashboard, payment_methods, profile
+        + available_subscription_types: (array) - list of subscription types available for provisioning/switching to.  Replacement for old `packages` (which is deprecated).  Possible values are wl_ultra_lite, wl_lite, wl_basic, wl_premium, wl_premium_ecomm, wl_advertising_starter, wl_advertising_growth, wl_advertising_pro, wl_ecommerce_demo, wl_ecommerce_basic, wl_ecommerce_professional, wl_ecommerce_unlimited
 
-    + Body
+### Single Partner Actions [/partners/{partner_id}/]
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
+#### Get partner details [GET]
+
+#### Full update of partner details [PUT]
+
+The json object fields are the same as for partner creation.
+Requires that all non-optional fields are set.
+
+#### Partial update partner details [PATCH]
+
+The json object fields are the same as for partner creation.
+You only have to specify the fields you want to update.
+
+#### Delete a partner [DELETE]
+
+### Child partner IDs [/partners/{partner_id}/child_partner_ids/]
+
+#### List IDs of child partners recursively [GET]
+
+### Ancestor partner IDs [/partners/{partner_id}/ancestors/]
+
+### List IDs of ancestor partners [GET]
