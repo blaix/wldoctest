@@ -244,3 +244,36 @@ wl_ecommerce_demo, wl_ecommerce_basic, wl_ecommerce_professional, wl_ecommerce_u
 + Attributes
     + reason: (string) - Reason for deprovision
     + soft: (boolean) - If true, only mark subscription as deprovisioned
+
+
+## Group Campaigns
+
+SiteWit campaigns actions for a particular site.
+
+**Campaign Resource**:
+
+```
+{
+    "id": <campaign_id>, int,
+    "name": <campaign_name>, str,
+    "status": <campaign_status>, str ("Active", "Cancelled"...),
+    "subscription_id": <subscription_id>, str.
+                       Related subscription if exists, otherwise None.
+}
+```
+
+### List campaigns [GET /sites/{SITE_ID}/campaigns/]
+
+### Get details for one of your campaigns [GET /sites/{SITE_ID}/campaigns/{CAMPAIGN_ID}/]
+
+### Delete campaign [DELETE /sites/{SITE_ID}/campaigns/{CAMPAIGN_ID}/]
+
+Returns deleted Campaign Resource or 404 if campaign not found. If campaign has active subscription, it will be deprovisioned.
+
+### Subscribe to campaign [POST /sites/{SITE_ID}/campaigns/{CAMPAIGN_ID}/subscribe/]
+
++ Attributes
+    + budget: (number) - campaign budget
+    + currency: (string) - campaign currency
+
+### Cancel campaign subscription [POST /sites/{SITE_ID}/campaigns/{CAMPAIGN_ID}/cancel_subscription/]
