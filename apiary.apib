@@ -88,13 +88,11 @@ You only have to specify the fields you want to update.
 
 #### Delete a partner [DELETE]
 
-### Child partner IDs [/partners/{partner_id}/child_partner_ids/]
+#### Child partner IDs [GET /partners/{partner_id}/child_partner_ids/]
 
-#### List IDs of child partners recursively [GET]
+Lists IDs of child partners recursively
 
-### Ancestor partner IDs [/partners/{partner_id}/ancestors/]
-
-### List IDs of ancestor partners [GET]
+#### Ancestor partner IDs [GET /partners/{partner_id}/ancestors/]
 
 
 ## Group Users
@@ -136,19 +134,13 @@ The json object fields are the same as for user creation. PATCH allows to specif
 
 #### Delete a user [DELETE]
 
-### SSO Create Site URL [/users/{user_id}/sso_url_create_site/?domain={domain}]
+#### SSO Create Site URL [GET /users/{user_id}/sso_url_create_site/?domain={domain}]
 
-#### Get SSO Create Site URL for a particular user [GET]
-
-### SSO Open Site URL [/users/{user_id}/sso_url_open_site/]
-
-#### Get SSO Open Site URL for a particular user [GET]
+#### SSO Open Site URL [GET /users/{user_id}/sso_url_open_site/]
 
 WL user can only have one site, so this endpoint doesn't require site id.
 
-### Change partner [/users/{user_id}/change_partner/]
-
-#### Change partner for a particular user [POST]
+#### Change partner [POST /users/{user_id}/change_partner/]
 
 + Attributes
     + new_partner_id: (string) - ID of the new partner
@@ -195,7 +187,6 @@ GET /subscriptions/?ordering=-billing_date
 ```
 
 #### Create new subscription [POST]
-POST /subscriptions/ {"type": <subscription_type>, "properties": {...}}
 
 + Attributes
     + type: (string) - the subscription type
@@ -211,7 +202,7 @@ See the "change type" action for available subscription types.
 
 #### Get subscription's details [GET]
 
-### Change subscription type [POST /subscriptions/{subscription_id}/change_type/]
+#### Change subscription type [POST /subscriptions/{subscription_id}/change_type/]
 
 + Attributes
     + new_type: (string) - The new subscription type
@@ -236,19 +227,19 @@ Ecwid add-ons (they cannot be provisioned without package, except for wl_ecommer
 wl_ecommerce_demo, wl_ecommerce_basic, wl_ecommerce_professional, wl_ecommerce_unlimited.
 ```
 
-### Cancel active subscription [POST /subscriptions/{SUBSCRIPTION_ID}/cancel/]
+#### Cancel active subscription [POST /subscriptions/{SUBSCRIPTION_ID}/cancel/]
 
 + Attributes
     + reason: (string) - The reason for cancellation
 
-### Reactivate cancelled subscription [POST /subscriptions/{SUBSCRIPTION_ID}/reactivate/]
+#### Reactivate cancelled subscription [POST /subscriptions/{SUBSCRIPTION_ID}/reactivate/]
 
 + Attributes
     + reason: (string) - The reason for reactivation
 
-### Convert TRIAL subscription to active [POST /subscriptions/{SUBSCRIPTION_ID}/remove_trial/]
+#### Convert TRIAL subscription to active [POST /subscriptions/{SUBSCRIPTION_ID}/remove_trial/]
 
-### Deprovision subscription [POST /subscriptions/{SUBSCRIPTION_ID}/deprovision/]
+#### Deprovision subscription [POST /subscriptions/{SUBSCRIPTION_ID}/deprovision/]
 
 + Attributes
     + reason: (string) - Reason for deprovision
