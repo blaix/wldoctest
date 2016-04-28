@@ -262,21 +262,26 @@ SiteWit campaigns actions for a particular site.
 }
 ```
 
-### List campaigns [GET /sites/{SITE_ID}/campaigns/]
+### Campaign List Actions [/sites/{SITE_ID}/campaigns/]
 
-### Get details for one of your campaigns [GET /sites/{SITE_ID}/campaigns/{CAMPAIGN_ID}/]
+#### List campaigns [GET]
 
-### Delete campaign [DELETE /sites/{SITE_ID}/campaigns/{CAMPAIGN_ID}/]
+### Single campaign Actions [/sites/{SITE_ID}/campaigns/{CAMPAIGN_ID}]
+
+#### Get details for one of your campaigns [GET]
+
+#### Delete campaign [DELETE]
 
 Returns deleted Campaign Resource or 404 if campaign not found. If campaign has active subscription, it will be deprovisioned.
 
-### Subscribe to campaign [POST /sites/{SITE_ID}/campaigns/{CAMPAIGN_ID}/subscribe/]
+#### Subscribe to campaign [POST /sites/{SITE_ID}/campaigns/{CAMPAIGN_ID}/subscribe/]
 
 + Attributes
     + budget: (number) - campaign budget
     + currency: (string) - campaign currency
 
-### Cancel campaign subscription [POST /sites/{SITE_ID}/campaigns/{CAMPAIGN_ID}/cancel_subscription/]
+#### Cancel campaign subscription [POST /sites/{SITE_ID}/campaigns/{CAMPAIGN_ID}/cancel_subscription/]
+
 
 ## Group Sites
 
