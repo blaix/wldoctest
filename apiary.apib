@@ -9,6 +9,23 @@ All resources can be accessed via RESTful endpoints.
 
 All endpoints expect and return JSON objects.
 
+# Pagination
+
+All listing endpoints return paginated results unless otherwise stated.
+
+For example:
+
+```
+{
+    "count": 6898,
+    "next": "https://wl.qa.yola.net/pr/users/?page=2",
+    "previous": null,
+    "results": [{...}, {...}, ...]
+}
+```
+
+You may pass `page` and `page_size` parameters to adjust the result set.
+
 # Auth
 
 All endpoints require valid HTTP authentication credentials unless otherwise stated.
@@ -87,14 +104,6 @@ Create, get, update, and delete users.
 ### User List Actions [/users/]
 
 #### List all users [GET]
-
-Results will be paginated. For example:
-
-```
-{ "count": 6898, "next": "https://wl.qa.yola.net/pr/users/?page=2", "previous": null, "results": [{...}, {...}, ...] }
-```
-
-Pass a `page_size` parameter to adjust the default page size.
 
 Results are filterable on the following fields:
 
