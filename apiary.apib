@@ -78,3 +78,68 @@ You only have to specify the fields you want to update.
 ### Ancestor partner IDs [/partners/{partner_id}/ancestors/]
 
 ### List IDs of ancestor partners [GET]
+
+
+## Group Users
+
+Create, get, update, and delete users.
+
+### User List Actions [/users/]
+
+#### List all users [GET]
+
+Results will be paginated. For example:
+
+```
+{ "count": 6898, "next": "https://wl.qa.yola.net/pr/users/?page=2", "previous": null, "results": [{...}, {...}, ...] }
+```
+
+Pass a `page_size` parameter to adjust the default page size.
+
+Results are filterable on the following fields:
+
+* `id`
+* `email`
+* `partner_id`
+
+For example: `GET /users/?page_size=100&partner_id=WL_YOLA`
+
+#### Create user [POST]
+
++ Attributes
+    + name: (string) - first name of the user.
+    + surname: (string) - last name of the user.
+    + email: (string) - user's email.
+    + partner_id: (string) - ID of the partner this user belongs to.
+    + preferences: (object) - name of the object items are the names of user prefernces and the values of the items are values of the preferences.
+
+### Single User Actions [/users/{user_id}/]
+
+#### Get details for a particular user [GET]
+
+#### Full update of user details [PUT]
+
+The json object fields are the same as for user creation. PUT requires that all non-optional fields are set.
+
+#### Partial update of user details [PATCH]
+
+The json object fields are the same as for user creation. PATCH allows to specify only fields that are about to be modified.
+
+#### Delete a user [DELETE]
+
+### SSO Create Site URL [/users/{user_id}/sso_url_create_site/?domain={domain}]
+
+#### Get SSO Create Site URL for a particular user [GET]
+
+### SSO Open Site URL [/users/{user_id}/sso_url_open_site/]
+
+#### Get SSO Open Site URL for a particular user [GET]
+
+WL user can only have one site, so this endpoint doesn't require site id.
+
+### Change partner [/users/{user_id}/change_partner/]
+
+#### Change partner for a particular user [POST]
+
++ Attributes
+    + new_partner_id: (string) - ID of the new partner
