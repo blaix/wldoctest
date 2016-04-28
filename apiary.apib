@@ -152,3 +152,104 @@ WL user can only have one site, so this endpoint doesn't require site id.
 
 + Attributes
     + new_partner_id: (string) - ID of the new partner
+
+
+## Group Subscriptions
+
+Actions on subscriptions.
+
+### Subscription List Actions [/subscriptions/]
+
+#### List subscriptions [GET]
+
+Results are scoped to given partner and all its sub-partners.
+
+Supports filtering by user:
+
+```
+GET /subscriptions/?user_id=USER_ID
+```
+
+And/Or by status:
+
+```
+GET /subscriptions/?status__in=active,canceled,expired (subs considered active)
+```
+
+Supported filters:
+
+```
+user_id, status, status__in, partner_id
+```
+
+Result can be ordered by any field:
+
+```
+GET /subscriptions/?ordering=expiry_date,type
+```
+
+For reverse ordering please prefix the field name with '-':
+
+```
+GET /subscriptions/?ordering=-billing_date
+```
+
+#### Create new subscription [POST]
+POST /subscriptions/ {"type": <subscription_type>, "properties": {...}}
+
++ Attributes
+    + type: (string) - the subscription type
+    + properties: (object) - subscription properties
+        + trial: (boolean) - is this a trial subscription?
+        + campaign_id: (string) - SiteWit campaign ID (if this is an advertising product)
+        + site_id: (string) - Yola site id (if this is an advertising product)
+        + currency: (string) - campaign's currency (if this is an advertisting product)
+
+See the "change type" action for available subscription types.
+
+### Single subscription actions [/subscriptions/{subscription_id}/]
+
+#### Get subscription's details [GET]
+
+### Change subscription type [POST /subscriptions/{subscription_id}/change_type/]
+
++ Attributes
+    + new_type: (string) - The new subscription type
+
+Available types are:
+
+packages:
+
+```
+wl_ultra_lite, wl_lite, wl_basic, wl_premium, wl_premium_ecomm.
+```
+
+Advertising subscriptions:
+
+```
+wl_advertising_starter, wl_advertising_growth, wl_advertising_pro.
+```
+
+Ecwid add-ons (they cannot be provisioned without package, except for wl_ecommerce_demo):
+
+```
+wl_ecommerce_demo, wl_ecommerce_basic, wl_ecommerce_professional, wl_ecommerce_unlimited.
+```
+
+### Cancel active subscription [POST /subscriptions/{SUBSCRIPTION_ID}/cancel/]
+
++ Attributes
+    + reason: (string) - The reason for cancellation
+
+### Reactivate cancelled subscription [POST /subscriptions/{SUBSCRIPTION_ID}/reactivate/]
+
++ Attributes
+    + reason: (string) - The reason for reactivation
+
+### Convert TRIAL subscription to active [POST /subscriptions/{SUBSCRIPTION_ID}/remove_trial/]
+
+### Deprovision subscription [POST /subscriptions/{SUBSCRIPTION_ID}/deprovision/]
+
++ Attributes
+    + reason: (string) - Reason for deprovision
+    + soft: (boolean) - If true, only mark subscription as deprovisioned
